@@ -1,8 +1,10 @@
 #ifndef KEYS_H
 #define KEYS_H
 #include "bigint.h"
+#include<algorithm>
 #include <string>
-const unsigned int LENGTH = 20;
+#include <time.h>
+const unsigned int LENGTH = 12;
 const unsigned  int PRIME_ACCURACY = 5; //Rabin-Miller test accuracy
 
 class Keys
@@ -11,6 +13,7 @@ public:
 	Keys();
 	~Keys();
 	BigInt n, e, d;
+
 private:
 	void Randomiser(BigInt &num, int Didgits);
 	void PrimeGenerator(BigInt &num);

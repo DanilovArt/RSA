@@ -1,7 +1,7 @@
 #include "bigint.h"
 #include <string>
 #include <stack>
-
+#include<stdlib.h>
 using namespace std;
 
 BigInt::BigInt() {
@@ -22,6 +22,58 @@ BigInt::BigInt(unsigned long x) {
 
 BigInt::BigInt(const BigInt &x) : data(x.data) {
 }
+
+
+
+
+
+
+
+
+
+int BigInt::toint(){
+     if (data.size()>1)
+         return 0;
+     else{
+         int result=data[0];
+         if (data.size() == 1)
+             result += data[1] * BASE;
+         return result;
+     }
+ }
+
+ QString biginttostr(BigInt number){
+
+    QString result,trans;
+    QString supp;
+int razryad=number.data.size()-1;
+    supp=QString::number(number.data[razryad], 10);
+    result = supp;
+
+    for (int i = razryad-1; i >= 0; i--){
+        supp=QString::number(number.data[i],10);
+        trans = supp;
+        while (trans.length() < RAZRYAD)
+            trans = "0" + trans;
+
+        result += trans;
+        trans.clear();
+    }
+
+
+
+    //result = number.znak + result;
+    return result;
+}
+
+
+
+
+
+
+
+
+
 
 BigInt::BigInt(std::string x){
 	data.resize(1);
@@ -221,18 +273,13 @@ BigInt operator / (BigInt a, BigInt b) {
 		return 0;
 	if (!b.data.size())
 		throw 1;
-
 	BigInt c;
-
 	int x = 0;
-
 	while (a >= b) {
 		b.mul10();
 		x++;
 	}
-
 	b.div10();
-
 	while (x--) {
 		while (a >= b) {
 			a = a - b;
@@ -249,19 +296,14 @@ BigInt operator / (BigInt a, BigInt b) {
 }
 
 BigInt operator % (BigInt a, BigInt b) {
-
 	if (a < b)
 		return a;
-
 	int x = 0;
-
 	while (a >= b) {
 		b.mul10();
 		x++;
 	}
-
 	b.div10();
-
 	while (x--) {
 		while (a >= b) {
 			a = a - b;
@@ -548,7 +590,7 @@ SBigInt operator / (SBigInt a, SBigInt b){
 	if (a.sign != b.sign)
 		temp.sign = false;
 
-	temp.data = a.data * b.data;
+    temp.data = a.data / b.data;
 	return temp;
 
 }
@@ -559,4 +601,17 @@ SBigInt operator % (SBigInt a, SBigInt b){
 	temp.data = a.data % b.data;
 
 	return temp;
+}
+
+SBigInt::SBigInt(const BigInt &x){
+    data =x;
+    sign=true;
+}
+
+
+ostream &operator << (ostream &os, const SBigInt &num){
+    if(!num.sign)
+        os<<"-";
+    os<<num.data;
+    return os;
 }

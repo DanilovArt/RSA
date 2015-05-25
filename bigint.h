@@ -3,18 +3,20 @@
 #include <iterator>
 #include <string>
 #include <iostream>
+#include <QString>
 
 
 const unsigned int  BASE = 10000;
 const unsigned int RAZRYAD = 4;
 
 class BigInt {
-public:
 
+public:
 	std::vector< int > data;
 
 	void mul10();
 	void div10();
+
 
 
 	BigInt();
@@ -30,6 +32,9 @@ public:
 	friend BigInt operator * (const BigInt &a, const BigInt &b);
 	friend BigInt operator / (BigInt a, BigInt b);
 	friend BigInt operator % (BigInt a, BigInt b);
+    friend QString biginttostr(BigInt number);
+    int toint();
+
 
 	BigInt& operator=(const BigInt &x);
 
@@ -56,10 +61,11 @@ class SBigInt
 public:
 	SBigInt();
 	~SBigInt();
+    SBigInt(const BigInt &x);
 
 	SBigInt(const SBigInt &x);
 
-
+friend std::ostream &operator << (std::ostream &os, const SBigInt &num);
 	friend SBigInt operator + (const SBigInt &a, const SBigInt &b);
 	friend SBigInt operator - (const SBigInt &a, const SBigInt &b);
 	friend SBigInt operator * (const SBigInt &a, const SBigInt &b);

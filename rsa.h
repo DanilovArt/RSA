@@ -9,9 +9,13 @@ public:
 	RSA();
 	~RSA();
 	void encrypt(BigInt& cryptmes, BigInt& message, BigInt& e, BigInt& n);
+    void encrypt(BigInt& cryptmes, BigInt& message);
+
+   // void encrypt(std::vector<BigInt>& cryptmes, std::string& message, BigInt& e, BigInt& n);
+   // void decrypt(std::vector<BigInt>& cryptmes, std::string& message);
 	void decrypt(BigInt& cryptmes, BigInt& message);
 	void PublicKey(BigInt &exp, BigInt& modulus);
-//private:
+private:
 	Keys dog;
 };
 

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource lang="eng" prefix="/new/icon">
+        <file>zamok.jpg</file>
+    </qresource>
+</RCC>
